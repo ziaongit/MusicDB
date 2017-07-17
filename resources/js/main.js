@@ -39,12 +39,12 @@
             if(http.readyState === XMLHttpRequest.DONE && http.status === 200) {
 
                 var jsonResponse = JSON.parse(http.response);
-                console.log(jsonResponse);
 
                 showArtist(jsonResponse);
 
             }else if(http.readyState === XMLHttpRequest.DONE && http.status !== 200) {
-                console.log('something is wrong')
+                document.querySelector('#no_data').style.display = 'none';
+                document.querySelector('#something_wrong').style.display = 'block';
             }
         }
 
@@ -63,23 +63,25 @@
 
         if(object.results.length > 0) {
 
+            document.querySelector('#something_wrong').style.display = 'none';
             document.querySelector('#no_data').style.display = 'none';
 
             for(var i = 0; i < object.results.length; i++) {
                 template += '<div class="col-sm-3 album_item">';
-                template +=     '<div class="item_thumbnail" style="background:url()"></div>';
-                template +=     '<div class="item_title">Love is easy</div>';
+                template +=     '<div class="item_thumbnail" style="background:url('+ object.results[i].artworkUrl100+')"></div>';
+                template +=     '<div class="item_title">'+object.results[i].collectionName+'</div>';
                 template +=     '<div class="item_price">';
-                template +=         '<span>Proce:</span> 200 USD';
+                template +=         '<span>Price:</span> '+object.results[i].collectionPrice;
                 template +=     '</div>';
-                template +=     '<a href="#" target="_blank">Buy Now</a>';
+                template +=     '<a href="'+object.results[i].collectionViewUrl+'" target="_blank">Buy Now</a>';
                 template += '</div>';
             }
-            
+
             container.innerHTML = '';
             container.insertAdjacentHTML('afterbegin', template);
 
         }else {
+            document.querySelector('#something_wrong').style.display = 'none';
             document.querySelector('#no_data').style.display = 'block';
         }
     };

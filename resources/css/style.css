@@ -93,6 +93,10 @@ body {
     display: none;
     text-align: center;
 }
+#something_wrong {
+    display: none;
+    text-align: center;
+}
 .notice {
     padding: 15px;
     background-color: #fafafa;
